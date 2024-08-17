@@ -1,7 +1,7 @@
 FROM python:3.11.9-alpine3.20
 LABEL maintainer="oh"
 
-ENV PYTHONBUFFERED=1
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY ./app .
 
-EXPOSE 8003
+EXPOSE 8002
 
 ARG DEV=false
 RUN python -m venv /py && \
@@ -24,9 +24,9 @@ RUN python -m venv /py && \
     rm -rf /tmp && \
     apk del .tmp-build-deps && \
     adduser \
-    --disabled-password \
-    --no-create-home \
-    django-user
+      --disabled-password \
+      --no-create-home \
+      django-user
 
 ENV PATH="/py/bin:$PATH"
 
