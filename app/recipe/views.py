@@ -56,9 +56,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """ Return objects for the current authenticated user only """
+        queryset = self.queryset.filter(user=self.request.user)
         tags = self.request.query_params.get('tags')
         ingredients = self.request.query_params.get('ingredients')
-        queryset = self.queryset.filter(user=self.request.user)
 
         if tags:
             tag_ids = self._params_to_ints(tags)
